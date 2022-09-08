@@ -9,51 +9,67 @@ class NetworkImageWidget extends StatelessWidget {
   final String? imageUrl;
   final File? imageFile;
   final String? placeHolder;
-  final BoxFit? boxFit;
+  final BoxFit? placeHolderBoxFit;
+  final BoxFit? networkImageBoxFit;
+  final BoxFit? imageFileBoxFit;
   final Widget? progressIndicatorBuilder;
   final Widget? errorWidgetBuilder;
-  final double? borderRadius;
-  const NetworkImageWidget(
-      {Key? key,
-      this.errorWidgetBuilder,
-      this.imageFile,
-      this.imageUrl,
-      this.placeHolder,
-      this.boxFit,
-      this.progressIndicatorBuilder,this.borderRadius,})
-      : super(key: key);
+  final double? borderRadiusPlaceHolder;
+  final double? borderRadiusNetworkImage;
+  final double? borderRadiusImageFile;
+
+  const NetworkImageWidget({
+    Key? key,
+    this.errorWidgetBuilder,
+    this.imageFile,
+    this.imageUrl,
+    this.placeHolder,
+    this.imageFileBoxFit,
+    this.networkImageBoxFit,
+    this.placeHolderBoxFit,
+    this.progressIndicatorBuilder,
+    this.borderRadiusImageFile,
+    this.borderRadiusNetworkImage,
+    this.borderRadiusPlaceHolder,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     if (imageFile == null) {
       if (imageUrl == null || imageUrl == "") {
         return ClipRRect(
-          borderRadius: BorderRadius.circular(borderRadius==null?20:borderRadius!),
+          borderRadius: BorderRadius.circular(
+              borderRadiusPlaceHolder == null ? 20 : borderRadiusPlaceHolder!),
           child: Image.asset(
             placeHolder == null ? 'assets/default_profile.png' : placeHolder!,
-            fit: boxFit,
+            fit: placeHolderBoxFit,
           ),
         );
       } else {
         return ClipRRect(
-          borderRadius: BorderRadius.circular(borderRadius==null?20:borderRadius!),
+          borderRadius: BorderRadius.circular(borderRadiusNetworkImage == null
+              ? 20
+              : borderRadiusNetworkImage!),
           child: CachedNetworkImage(
             imageUrl: "$imageUrl",
-            fit: boxFit,
+            fit: networkImageBoxFit,
             progressIndicatorBuilder: (context, url, downloadProgress) =>
                 progressIndicatorBuilder == null
                     ? _loadingIndicator()
                     : progressIndicatorBuilder!,
-            errorWidget: (context, url, error) => errorWidgetBuilder==null?_errorWidget():errorWidgetBuilder!,
+            errorWidget: (context, url, error) => errorWidgetBuilder == null
+                ? _errorWidget()
+                : errorWidgetBuilder!,
           ),
         );
       }
     } else {
       return ClipRRect(
-        borderRadius: BorderRadius.circular(borderRadius==null?20:borderRadius!),
+        borderRadius: BorderRadius.circular(
+            borderRadiusImageFile == null ? 20 : borderRadiusImageFile!),
         child: Image.file(
           imageFile!,
-          fit: BoxFit.cover,
+          fit: imageFileBoxFit,
         ),
       );
     }

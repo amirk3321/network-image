@@ -1,7 +1,8 @@
 name: network_image
-description: Network Image Widget make your life easy directly call me and feed me with (ImageUrl) or (File) or leave me empty I will automatically set for you default image if you want me to change pass your own using placeHolder sounds nice right use me in your project.
+description: NetworkImageWidget make your life easy directly call me and feed me with (ImageUrl) or (File) or leave me empty I will automatically set for you default image if you want me to change pass your own using placeHolder sounds nice right use me in your project.
 version: 0.0.1
 homepage: https://github.com/amirk3321/network-image
+issue_tracker: https://github.com/amirk3321/network-image/issues
 
 environment:
   sdk: ">=2.17.6 <3.0.0"
